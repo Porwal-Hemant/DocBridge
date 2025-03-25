@@ -44,26 +44,33 @@ RAZORPAY_KEY_SECRET=your_razorpay_secret
 
 STEP 4 -> 
 Start backend server 
+
 npm start    # Runs the server
 
 
 STEP 5 -> 
 Frontend Setup
+
 cd ../frontend
+
 npm install   # Install dependencies
 
 STEP 6 -> 
 Start frontend server 
+
 npm run dev   # Runs the frontend in development mode
 
 
 STEP 7 -> 
 Admin pannel setup 
+
 cd ../admin
+
 npm install   # Install dependencies
 
 STEP 8 -> 
 Start admin pannel 
+
 npm run dev   # Runs the admin panel in development mode
 
 
