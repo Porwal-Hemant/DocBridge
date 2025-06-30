@@ -1,37 +1,75 @@
-Overview
+# HP-DOCTORHUB – Doctor Appointment Booking System
 
-This is a Full-Stack Doctor Appointment Booking System built using the MERN stack. It includes separate Admin, Doctor, and User Panels, along with a Razorpay payment gateway, Google Maps API, and a medical chatbot for enhanced functionality.
+##  Overview
 
-Tech Stack
+This is a **Full-Stack Doctor Appointment Booking System** built using the **MERN stack**. It includes separate panels for **Admin**, **Doctor**, and **User** roles. The application also features:
 
-Frontend: React (Vite), React Router, Tailwind CSS
+- **Razorpay** for payment processing  
+- **Google Maps API** for location services  
+- An integrated **medical chatbot** for basic health guidance
 
-Backend: Node.js, Express.js, MongoDB, Mongoose
+---
 
-Authentication: JSON Web Token (JWT), bcrypt
+##  Tech Stack
 
-File Uploads: Multer, Cloudinary
+- **Frontend:** React (Vite), React Router, Tailwind CSS  
+- **Backend:** Node.js, Express.js  
+- **Database:** MongoDB, Mongoose  
+- **Authentication:** JWT, bcrypt  
+- **File Uploads:** Multer, Cloudinary  
+- **Payments:** Razorpay  
+- **Other Integrations:**
+  - Google Maps API  
+  - Medical Chatbot (basic)
 
-Payments: Razorpay
+---
 
-Chatbot: Integrated for basic medical guidance
+##  Folder Structure
 
-Maps: Google Maps API
+```bash
+HP-DOCTORHUB/
+├── backend/       # Backend code (Node.js + Express)
+├── frontend/      # User interface (React + Tailwind CSS)
+└── admin/         # Admin panel frontend
 
-Installation Guide-> 
-STEP 1 ->
-Clone this below Repository on your VS code 
-https://github.com/Porwal-Hemant/HP-DOCTORHUB/
 
-STEP 2-> 
-Backend Setup
+```
+
+---
+
+###  Getting Started
+
+Follow these steps to set up **MediBot** locally.
+
+
+###  1. Clone the Repository
+
+```bash
+git clone https://github.com/Porwal-Hemant/HP-DOCTORHUB.git
+cd MedibotBooking
+```
+###  2. Install Dependencies
+MediBot Booking may have separate folders for backend and frontend ( named **frontend** and **backend** )
+
+- Install Backend Dependencies
+
+```bash
 cd backend
-npm install   # Install dependencies
+npm install
 
-STEP 3 -> 
+```
 
-Create a .env file in the backend folder and add the following:
+-  Install Frontend Dependencies
+```bash
+cd ../frontend
+npm install
+```
 
+###  3. Configure Environment Variables
+
+- Create a `.env` file inside the **backend** folder and add:
+
+```bash
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
@@ -40,44 +78,43 @@ CLOUDINARY_API_KEY=your_cloudinary_api_key
 CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 RAZORPAY_KEY_ID=your_razorpay_key
 RAZORPAY_KEY_SECRET=your_razorpay_secret
+```
+
+### 4. Start the Backend Server
+
+```bash
+cd backend
+npm start
+
+```
+
+- The backend will start at: http://localhost:5000
 
 
-STEP 4 -> 
-Start backend server 
 
-npm start    # Runs the server
+### 5. Start the Frontend Server
 
+Open a new terminal:
 
-STEP 5 -> 
-Frontend Setup
+```bash
+cd frontend
+npm run dev
 
-cd ../frontend
+```
+- The frontend will run at: http://localhost:5173
 
-npm install   # Install dependencies
-
-STEP 6 -> 
-Start frontend server 
-
-npm run dev   # Runs the frontend in development mode
-
-
-STEP 7 -> 
-Admin pannel setup 
-
+Admin Panel Setup:
+```bash
 cd ../admin
-
-npm install   # Install dependencies
-
-STEP 8 -> 
-Start admin pannel 
-
-npm run dev   # Runs the admin panel in development mode
+npm install   # Install admin panel dependencies
+```
 
 
-Project Owner 
+---
 
-Hemant Porwal 
-Indian Institute of Information Technology Guwahati 
-email -> hemantporwal2k3@gmail.com
+### Connect with Me 
 
-Copyright © Hemant Porwal
+- **Name**: Hemant Porwal  
+- **Email**: [hemantporwal2k3@gmail.com](mailto:hemantporwal2k3@gmail.com)  
+- **LinkedIn**: [https://www.linkedin.com/in/hemantporwal/](https://www.linkedin.com/in/hemant-porwal-462b1b258/)
+
