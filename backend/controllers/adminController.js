@@ -8,20 +8,22 @@ import appointmentModel from "../models/appointmentModel.js";
 import doctorModel from "../models/doctorModel.js";
 import userModel from "../models/userModel.js";
 
+// Multer is applied in the route definition where the addDoctor function is used.
+
 const addDoctor = async (req, res) => {
     try {
+        // these all things are comign from the admin frontend ( whwere we are adding doctor )
         const { name, email, password, speciality, degree, experience, about, fees, address } = req.body
         // Now we will send data with the help of middleware 
 
-        const imageFile = req.file
+        const imageFile = req.file    // req.file is only available if Multer middleware is used in the route.
 
         console.log({ name, email, password, speciality, degree, experience, about, fees, address }, imageFile)
         /* 
         
-        A user makes a POST request to "/add-doctor" with form data, including an image file.
+        A admin makes a POST request to "/add-doctor" with form data, including an image file.
         The multer middleware processes and stores the uploaded file.
         Once the file is uploaded, addDoctor is executed to process and store the doctor's details in the database.
-        
         
         */
 
@@ -43,7 +45,13 @@ const addDoctor = async (req, res) => {
         // hashing user password
         const salt = await bcrypt.genSalt(10); // A salt is a random string added to the password before hashing to make it more secure.
         const hashedPassword = await bcrypt.hash(password, salt)  // bcrypt.hash(password, salt) hashes the given password using the generated salt.
-
+        /* 
+ 
+        The salt is generated once.
+ 
+        The hashing function internally performs 2^10 (i.e., 1024) computational steps to hash the password — not 10 times, but a cost of 10.
+ 
+ */
         /* 
 
         bcrypt takes the password and salt.
@@ -54,17 +62,27 @@ const addDoctor = async (req, res) => {
        */
 
         // upload image to cloudinary
+        // const imageFile = req.file    // req.file is only available if Multer is used in the route.  ( multer store uploaded image in imageFile.path and The name of the file will be same as the original file name. )
         const imageUpload = await cloudinary.uploader.upload(imageFile.path, { resource_type: "image" })
+        // imageFile.path refers to the local path where Multer temporarily stores the uploaded image.
         const imageUrl = imageUpload.secure_url
-
+        /* 
+              example of cloudinary response 
+        {
+            "public_id": "abc123",
+            "url": "http://res.cloudinary.com/demo/image/upload/v1678371234/doctor.jpg",
+            "secure_url": "https://res.cloudinary.com/demo/image/upload/v1678371234/doctor.jpg",
+            "format": "jpg",
+            "resource_type": "image"
+        }
+        */
         /* 
         
         When you're using a file upload middleware like Multer in an Express app, it automatically saves the file to a specific path on the server's filesystem (usually in a temporary directory).
-        
+
         Here's how the req.file object is structured and how you can get the path of the file.
         
         */
-
 
         const doctorData = {
             name,
@@ -109,9 +127,12 @@ const loginAdmin = async (req, res) => {
     try {
 
         const { email, password } = req.body
-
+        // we are creating token because there are various functions which are subjected to admin only so token after admin login have to pass as the parameter which will ensure that the admin is logged in or the manipulation of some login have not happened 
         if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+            // const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)   // for users // so that user can login on the website 
+            // I am creating token with the help of user ID and email + password for admin              
             const token = jwt.sign(email + password, process.env.JWT_SECRET)
+            // I am creating token with the help of email + password 
             res.json({ success: true, token })
         } else {
             res.json({ success: false, message: "Invalid credentials" })
@@ -136,7 +157,6 @@ const allDoctors = async (req, res) => {
     }
 }
 
-// API to get all apointment list 
 
 // API to get all appointments list
 const appointmentsAdmin = async (req, res) => {
@@ -182,7 +202,7 @@ const adminDashboard = async (req, res) => {
             doctors: doctors.length,
             appointments: appointments.length,
             patients: users.length,
-            latestAppointments: appointments.reverse().slice( 0 , 5)
+            latestAppointments: appointments.reverse().slice(0, 5)
         }
 
         res.json({ success: true, dashData })
@@ -193,13 +213,12 @@ const adminDashboard = async (req, res) => {
     }
 }
 
-
 export {
     addDoctor,
     loginAdmin,
     allDoctors,
-    appointmentsAdmin  ,
-    appointmentCancel ,  
-    adminDashboard      
+    appointmentsAdmin,
+    appointmentCancel,
+    adminDashboard
 }
 

@@ -1,5 +1,6 @@
-import multer from "multer";
+import multer from "multer"   ;    // multer is a middleware for handling multipart/form-data, used for file uploads.
 
+// diskStorage means the files will be stored on the server’s disk (local storage).
 const storage = multer.diskStorage({
     filename: function (req, file, callback) {
         callback(null, file.originalname)
@@ -10,6 +11,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 export default upload
+
+// I have to check what will happen if we are 2 iamge with same name  -> might be a fault over here  
+
 
 /* 
 
@@ -23,7 +27,8 @@ callback(null, file.originalname) ensures that the uploaded file keeps its origi
 
 
 /* 
-   one more important thing -> 
+
+one more important thing -> 
    
 When you're using a file upload middleware like Multer in an Express app, it automatically saves the file to a specific path on the server's filesystem (usually in a temporary directory).
 
@@ -32,3 +37,4 @@ Here's how the req.file object is structured and how you can get the path of the
 see more in adminController.js
 
 */
+

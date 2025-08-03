@@ -10,7 +10,9 @@ const appointmentSchema = new mongoose.Schema({
     amount: { type: Number, required: true },
     date: { type: Number, required: true },
     cancelled: { type: Boolean, default: false },
+    // if the user pay the amount online it will be true else false 
     payment: { type: Boolean, default: false },
+    // appointment completed doctor can make it true 
     isCompleted: { type: Boolean, default: false }
 })
 

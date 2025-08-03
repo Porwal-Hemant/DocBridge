@@ -17,18 +17,36 @@ const AppContextProvider = (props) => {
     }
 
     // Function to calculate the age eg. ( 20_01_2000 => 25 )
+    // const calculateAge = (dob) => {
+    //     const today = new Date()
+    //     const birthDate = new Date(dob)
+    //     let age = today.getFullYear() - birthDate.getFullYear()
+    //     return age
+    // }
+    // Function to calculate the age accurately (e.g., 20_01_2000 => 25)
+
     const calculateAge = (dob) => {
-        const today = new Date()
-        const birthDate = new Date(dob)
-        let age = today.getFullYear() - birthDate.getFullYear()
-        return age
-    }
+        const today = new Date();
+        const birthDate = new Date(dob);
+
+        let age = today.getFullYear() - birthDate.getFullYear();
+
+        // Check if the birthday hasn't occurred yet in the current year
+        if (
+            today.getMonth() < birthDate.getMonth() ||
+            (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())
+        ) {
+            age--; // Decrease age if the birthday hasn't passed yet
+        }
+
+        return age;
+    };
 
     const value = {
         backendUrl,
-        currency,
-        slotDateFormat,
-        calculateAge,
+        currency, 
+        slotDateFormat,     // function for giving date like this ->> 20 Jan 2000
+        calculateAge,       // 
     }
 
     return (

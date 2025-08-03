@@ -1,176 +1,190 @@
-import React, { useContext, useState } from 'react'
-import { assets } from '../../assets/assets'
-import { toast } from 'react-toastify'
-import axios from 'axios'
-import { AdminContext } from '../../context/AdminContext'
-import { AppContext } from '../../context/AppContext'
+import React, { useContext, useState } from 'react';
+import { assets } from '../../assets/assets';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { AdminContext } from '../../context/AdminContext';
 
 const AddDoctor = () => {
+  const [docImg, setDocImg] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [experience, setExperience] = useState('1 Year');
+  const [fees, setFees] = useState('');
+  const [about, setAbout] = useState('');
+  const [speciality, setSpeciality] = useState('General physician');
+  const [degree, setDegree] = useState('');
+  const [address1, setAddress1] = useState('');
+  const [address2, setAddress2] = useState('');
 
-    const [docImg, setDocImg] = useState(false)
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [experience, setExperience] = useState('1 Year')
-    const [fees, setFees] = useState('')
-    const [about, setAbout] = useState('')
-    const [speciality, setSpeciality] = useState('General physician')
-    const [degree, setDegree] = useState('')
-    const [address1, setAddress1] = useState('')
-    const [address2, setAddress2] = useState('')
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const { aToken } = useContext(AdminContext);
 
-    const { backendUrl } = useContext(AdminContext)
-    const { aToken } = useContext(AdminContext)
+  const onSubmitHandler = async (event) => {
+    event.preventDefault();
 
-    const onSubmitHandler = async (event) => {
-        event.preventDefault()
+    try {
+      if (!docImg) return toast.error('Image Not Selected');
 
-        try {
+      const formData = new FormData();
+      formData.append('image', docImg);
+      formData.append('name', name);
+      formData.append('email', email);
+      formData.append('password', password);
+      formData.append('experience', experience);
+      formData.append('fees', Number(fees));
+      formData.append('about', about);
+      formData.append('speciality', speciality);
+      formData.append('degree', degree);
+      formData.append('address', JSON.stringify({ line1: address1, line2: address2 }));
 
-            if (!docImg) {
-                return toast.error('Image Not Selected')
-            }
+        // code from adminContext for reference 
+        // const [aToken, setAToken] = useState(
+        //     localStorage.getItem("aToken") ? localStorage.getItem("aToken") : ""
+        // );
 
-            const formData = new FormData();
+        // if it is in the local storage than we can get aToken from adminContext   
+      const { data } = await axios.post(`${backendUrl}/api/admin/add-doctor`, formData, {
+        headers: { aToken },
+      });
 
-            formData.append('image', docImg)
-            formData.append('name', name)
-            formData.append('email', email)
-            formData.append('password', password)
-            formData.append('experience', experience)
-            formData.append('fees', Number(fees))
-            formData.append('about', about)
-            formData.append('speciality', speciality)
-            formData.append('degree', degree)
-            formData.append('address', JSON.stringify({ line1: address1, line2: address2 }))
 
-            // console log formdata            
-            formData.forEach((value, key) => {
-                console.log(`${key}: ${value}`);
-            });
-            console.log("Backend URL:", backendUrl);
-
-            const { data } = await axios.post(backendUrl + '/api/admin/add-doctor', formData, { headers: { aToken } })
-            if (data.success) {
-                toast.success(data.message)
-                setDocImg(false)
-                setName('')
-                setPassword('')
-                setEmail('')
-                setAddress1('')
-                setAddress2('')
-                setDegree('')
-                setAbout('')
-                setFees('')
-            } else {
-                toast.error(data.message)
-            }
-
-        } catch (error) {
-            toast.error(error.message)
-            console.log(error)
-        }
-
+      if (data.success) {
+        toast.success(data.message);
+        setDocImg(false);
+        setName('');
+        setEmail('');
+        setPassword('');
+        setExperience('1 Year');
+        setFees('');
+        setAbout('');
+        setSpeciality('General physician');
+        setDegree('');
+        setAddress1('');
+        setAddress2('');
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+      console.log(error);
     }
+  };
 
-    return (
-        <form onSubmit={onSubmitHandler} className='m-5 w-full'>
+  return (
+    <div className="min-h-screen bg-gradient-to-tr from-purple-100 to-pink-100 flex items-center justify-center p-4">
+      <form
+        onSubmit={onSubmitHandler}
+        className="bg-white w-full max-w-4xl rounded-3xl shadow-2xl p-10 space-y-6"
+      >
+        <div className="flex flex-col items-center">
+          <label htmlFor="doc-img" className="cursor-pointer group">
+            {/* Clicking on the image (inside the label) will trigger the hidden file input. */}
+            <img
+              src={docImg ? URL.createObjectURL(docImg) : assets.upload_area}
+              alt="Doctor"
+              className="w-24 h-24 rounded-full object-cover border-4 border-purple-300 shadow-md transition-transform group-hover:scale-105"
+            />
+          </label>
+          <input
+            onChange={(e) => setDocImg(e.target.files[0])}
+            type="file"
+            id="doc-img"
+            hidden
+          />
+          <p className="text-xs mt-2 text-gray-500">Click to upload doctor image</p>
+        </div>
 
-            <p className='mb-3 text-lg font-medium'>Add Doctor</p>
-
-            <div className='bg-white px-8 py-8 border rounded w-full max-w-4xl max-h-[80vh] overflow-y-scroll'>
-                <div className='flex items-center gap-4 mb-8 text-gray-500'>
-                    <label htmlFor="doc-img">
-                        <img className='w-16 bg-gray-100 rounded-full cursor-pointer' src={docImg ? URL.createObjectURL(docImg) : assets.upload_area} alt="" />
-                    </label>
-                    <input onChange={(e) => setDocImg(e.target.files[0])} type="file" name="" id="doc-img" hidden />
-                    <p>Upload doctor <br /> picture</p>
-                </div>
-
-                <div className='flex flex-col lg:flex-row items-start gap-10 text-gray-600'>
-
-                    <div className='w-full lg:flex-1 flex flex-col gap-4'>
-
-                        <div className='flex-1 flex flex-col gap-1'>
-                            <p>Your name</p>
-                            <input onChange={e => setName(e.target.value)} value={name} className='border rounded px-3 py-2' type="text" placeholder='Name' required />
-                        </div>
-
-                        <div className='flex-1 flex flex-col gap-1'>
-                            <p>Doctor Email</p>
-                            <input onChange={e => setEmail(e.target.value)} value={email} className='border rounded px-3 py-2' type="email" placeholder='Email' required />
-                        </div>
-
-
-                        <div className='flex-1 flex flex-col gap-1'>
-                            <p>Set Password</p>
-                            <input onChange={e => setPassword(e.target.value)} value={password} className='border rounded px-3 py-2' type="password" placeholder='Password' required />
-                        </div>
-
-                        <div className='flex-1 flex flex-col gap-1'>
-                            <p>Experience</p>
-                            <select onChange={e => setExperience(e.target.value)} value={experience} className='border rounded px-2 py-2' >
-                                <option value="1 Year">1 Year</option>
-                                <option value="2 Year">2 Years</option>
-                                <option value="3 Year">3 Years</option>
-                                <option value="4 Year">4 Years</option>
-                                <option value="5 Year">5 Years</option>
-                                <option value="6 Year">6 Years</option>
-                                <option value="8 Year">8 Years</option>
-                                <option value="9 Year">9 Years</option>
-                                <option value="10 Year">10 Years</option>
-                            </select>
-                        </div>
-
-                        <div className='flex-1 flex flex-col gap-1'>
-                            <p>Fees</p>
-                            <input onChange={e => setFees(e.target.value)} value={fees} className='border rounded px-3 py-2' type="number" placeholder='Doctor fees' required />
-                        </div>
-
-                    </div>
-
-                    <div className='w-full lg:flex-1 flex flex-col gap-4'>
-
-                        <div className='flex-1 flex flex-col gap-1'>
-                            <p>Speciality</p>
-                            <select onChange={e => setSpeciality(e.target.value)} value={speciality} className='border rounded px-2 py-2'>
-                                <option value="General physician">General physician</option>
-                                <option value="Gynecologist">Gynecologist</option>
-                                <option value="Dermatologist">Dermatologist</option>
-                                <option value="Pediatricians">Pediatricians</option>
-                                <option value="Neurologist">Neurologist</option>
-                                <option value="Gastroenterologist">Gastroenterologist</option>
-                            </select>
-                        </div>
-
-
-                        <div className='flex-1 flex flex-col gap-1'>
-                            <p>Degree</p>
-                            <input onChange={e => setDegree(e.target.value)} value={degree} className='border rounded px-3 py-2' type="text" placeholder='Degree' required />
-                        </div>
-
-                        <div className='flex-1 flex flex-col gap-1'>
-                            <p>Address</p>
-                            <input onChange={e => setAddress1(e.target.value)} value={address1} className='border rounded px-3 py-2' type="text" placeholder='Address 1' required />
-                            <input onChange={e => setAddress2(e.target.value)} value={address2} className='border rounded px-3 py-2' type="text" placeholder='Address 2' required />
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div>
-                    <p className='mt-4 mb-2'>About Doctor</p>
-                    <textarea onChange={e => setAbout(e.target.value)} value={about} className='w-full px-4 pt-2 border rounded' rows={5} placeholder='write about doctor'></textarea>
-                </div>
-
-                <button type='submit' className='bg-blue-500 text-white text-sm px-10 py-2 rounded-full'>Add doctor</button>
-
+        <div className="grid md:grid-cols-2 gap-6">
+          {[
+            { label: 'Your Name', value: name, onChange: setName, type: 'text', placeholder: 'Name' },
+            { label: 'Doctor Email', value: email, onChange: setEmail, type: 'email', placeholder: 'Email' },
+            { label: 'Set Password', value: password, onChange: setPassword, type: 'password', placeholder: 'Password' },
+            { label: 'Fees', value: fees, onChange: setFees, type: 'number', placeholder: 'Doctor fees' },
+            { label: 'Degree', value: degree, onChange: setDegree, type: 'text', placeholder: 'Degree' },
+          ].map((field, i) => (
+            <div key={i}>
+              <label className="block text-sm font-medium text-gray-700 mb-1">{field.label}</label>
+              <input
+                value={field.value}
+                onChange={(e) => field.onChange(e.target.value)}
+                type={field.type}
+                placeholder={field.placeholder}
+                required
+                className="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-purple-400 outline-none"
+              />
             </div>
+          ))}
 
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Experience</label>
+            <select
+              value={experience}
+              onChange={(e) => setExperience(e.target.value)}
+              className="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-purple-400 outline-none"
+            >
+              {['1 Year', '2 Year', '3 Year', '4 Year', '5 Year', '6 Year', '8 Year', '9 Year', '10 Year'].map((exp) => (
+                <option key={exp} value={exp}>{exp}</option>
+              ))}
+            </select>
+          </div>
 
-        </form>
-    )
-}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Speciality</label>
+            <select
+              value={speciality}
+              onChange={(e) => setSpeciality(e.target.value)}
+              className="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-purple-400 outline-none"
+            >
+              {['General physician', 'Gynecologist', 'Dermatologist', 'Pediatricians', 'Neurologist', 'Gastroenterologist'].map((s) => (
+                <option key={s} value={s}>{s}</option>
+              ))}
+            </select>
+          </div>
 
-export default AddDoctor
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+            <input
+              value={address1}
+              onChange={(e) => setAddress1(e.target.value)}
+              type="text"
+              placeholder="Address Line 1"
+              className="w-full px-4 py-2 rounded-md border border-gray-300 mb-2 focus:ring-2 focus:ring-purple-400 outline-none"
+              required
+            />
+            <input
+              value={address2}
+              onChange={(e) => setAddress2(e.target.value)}
+              type="text"
+              placeholder="Address Line 2"
+              className="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-purple-400 outline-none"
+              required
+            />
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">About Doctor</label>
+          <textarea
+            value={about}
+            onChange={(e) => setAbout(e.target.value)}
+            rows={4}
+            placeholder="Write about the doctor..."
+            className="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-purple-400 outline-none"
+          />
+        </div>
+
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            className="bg-purple-600 text-white px-10 py-3 rounded-full text-lg font-semibold shadow-md hover:bg-purple-700 transition-transform transform hover:scale-105"
+          >
+            Add Doctor
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default AddDoctor;

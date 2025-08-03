@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 /*
+Axios helps to get interact with the backend  
 Axios is a promise-based HTTP client for making requests in JavaScript and Node.js. It allows you to send HTTP requests (GET, POST, PUT, DELETE, etc.) to interact with APIs
 */
 
@@ -36,6 +37,10 @@ const AppContextProvider = (props) => {
 
             const { data } = await axios.get(backendUrl + '/api/user/get-profile', { headers: { token } })
 
+//   const userData = await userModel.findById(userId).select('-password')
+
+//   res.json({ success: true, userData })
+// on receiving the data we have to fetch userData from the data obtained 
             if (data.success) {
                 setUserData(data.userData)
             } else {
@@ -49,7 +54,7 @@ const AppContextProvider = (props) => {
 
     }
 
-
+   // this function will be called whenever we will load the webpage 
     useEffect(() => {
         getDoctorsData();
     }, []);
@@ -72,6 +77,8 @@ const AppContextProvider = (props) => {
         userData, setUserData, loadUserProfileData
     };
     // This object holds all the global values that will be shared with other components.
+
+
     return (
         <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
     );

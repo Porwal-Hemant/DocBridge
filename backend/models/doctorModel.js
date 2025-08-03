@@ -12,6 +12,9 @@ const doctorSchema = new mongoose.Schema({
     available: { type: Boolean, default: true },
     fees: { type: Number, required: true },
     slots_booked: { type: Object, default: {} },   // Since it’s an object, it can store multiple slots in a structured way.
+    //     // slots_booked = {
+    //   "6_4_2025": ["10:00 AM", "10:30 AM", ...]  // Format: day_month_year: [booked_times]
+    // }
     /*
     3_2_2025
     Array (1)
@@ -23,5 +26,6 @@ const doctorSchema = new mongoose.Schema({
 }, { minimize: false })
 
 const doctorModel = mongoose.models.doctor || mongoose.model("doctor", doctorSchema);
+//in my mongoDB database , doctorSchema will going to be stored in name of doctor ( if it is already created don't need to initialise it again )
 export default doctorModel;
 

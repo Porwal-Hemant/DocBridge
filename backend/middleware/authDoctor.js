@@ -8,7 +8,7 @@ const authDoctor = async (req, res, next) => {
     }
     try {
         const token_decode = jwt.verify(dtoken, process.env.JWT_SECRET)
-        req.body.docId = token_decode.id
+        req.body.docId = token_decode.id    // it will convert token into DOC-ID
         next()
     } catch (error) {
         console.log(error)
@@ -17,3 +17,4 @@ const authDoctor = async (req, res, next) => {
 }
 
 export default authDoctor;
+

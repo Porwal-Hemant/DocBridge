@@ -17,9 +17,10 @@ const authAdmin = async (req, res, next) => {
         res.json({ success: false, message: error.message })
     }
 }
-
+// req.body.userId = token_decode.id   -> we don't have to send any id in the request because there is only one admin 
 export default authAdmin;
 
-// what is the use of this page -> 
+// what is the use of this middleware -> 
 //  if a person has authentication of a admin than only he can add or remove doctors 
+
 

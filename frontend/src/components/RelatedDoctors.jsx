@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/AppContext'
 
-
+// this component is rendered after Appointment.jsx
+// it will show the related doctors based on the speciality of the doctor
 const RelatedDoctors = ({ speciality, docId }) => {
 
     const navigate = useNavigate()
@@ -40,3 +41,4 @@ const RelatedDoctors = ({ speciality, docId }) => {
 }
 
 export default RelatedDoctors
+

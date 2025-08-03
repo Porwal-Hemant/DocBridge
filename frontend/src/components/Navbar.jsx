@@ -6,12 +6,12 @@ import { AppContext } from '../context/AppContext'
 
 const Navbar = () => {
 
-  const navigate = useNavigate()  
+  const navigate = useNavigate()
 
 
   // if we are having token we are log in otherwise we are logout 
 
-  const { token, setToken , userData } = useContext(AppContext)
+  const { token, setToken, userData } = useContext(AppContext)
 
   const logout = () => {
     localStorage.removeItem('token')
@@ -19,12 +19,38 @@ const Navbar = () => {
     navigate('/login')
   }
 
-
   const [showMenu, setShowMenu] = useState(false)
 
   return (
     <div className='flex items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-400'>
-      <img onClick={() => navigate('/')} className='w-44 cursor-pointer' src={assets.logo} alt="" />
+      {/* <img onClick={() => navigate('/')} className='w-44 cursor-pointer' src={assets.logo} alt="" /> */}
+      <span onClick={() => navigate('/')} className="flex items-center gap-2 cursor-pointer">
+        <span className="size-9 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-md">
+          D
+        </span>
+        <span className="text-3xl font-bold font-mono text-blue-500 tracking-wider">
+          DocBridge
+        </span>
+      </span>
+      <div className="flex gap-2">
+        <a
+          href="http://localhost:5174/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="border border-gray-400 text-sm px-3 py-1 rounded-full hover:bg-gray-100 transition"
+        >
+          Doctor
+        </a>
+        <a
+          href="http://localhost:5174/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="border border-gray-400 text-sm px-3 py-1 rounded-full hover:bg-gray-100 transition"
+        >
+          Admin
+        </a>
+      </div>
+
       <ul className='md:flex items-start gap-5 font-medium hidden'>
         <NavLink to='/' >
           <li className='py-1'>HOME</li>
@@ -47,6 +73,7 @@ const Navbar = () => {
       <div className='flex items-center gap-4 '>
         {
           token && userData
+            // The group class is a built-in utility class in Tailwind CSS It marks the parent as a reference point for child elements that use group-hover, group-focus, etc.
             ? <div className='flex items-center gap-2 cursor-pointer group relative'>
               <img className='w-8 rounded-full' src={userData.image} alt="" />
               <img className='w-2.5' src={assets.dropdown_icon} alt="" />
@@ -55,7 +82,7 @@ const Navbar = () => {
                   <p onClick={() => navigate('/my-profile')} className='hover:text-black cursor-pointer'>My Profile</p>
                   <p onClick={() => navigate('/my-appointments')} className='hover:text-black cursor-pointer'>My Appointments</p>
                   <p onClick={logout} className='hover:text-black cursor-pointer'>Logout</p>
-                  {/* // () => { setToken(false); navigate('/') } because we are storing it in local storage as well  */ }
+                  {/* // () => { setToken(false); navigate('/') } because we are storing it in local storage as well  */}
                 </div>
               </div>
             </div>
@@ -64,6 +91,7 @@ const Navbar = () => {
         <img onClick={() => setShowMenu(true)} className='w-6 md:hidden' src={assets.menu_icon} alt="" />
 
         {/* ---- Mobile Menu ---- */}
+        {/* NAVBAR will not be visible to us on mobile view   */}
         <div className={`md:hidden right-0 top-0 bottom-0 z-20 overflow-hidden bg-white transition-all ${showMenu ? 'fixed w-full' : 'h-0 w-0'}`}>
           <div className='flex items-center justify-between px-5 py-6'>
             <img src={assets.logo} className='w-36' alt="" />
@@ -82,3 +110,4 @@ const Navbar = () => {
 }
 
 export default Navbar
+

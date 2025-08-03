@@ -1,43 +1,69 @@
-import React from 'react'
-import { assets } from '../assets/assets'
+import React from 'react';
+import { Mail, Phone, Facebook, Twitter, Instagram } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Footer = () => {
+  const navigate = useNavigate();
+
   return (
-    <div className='md:mx-10'>
-      <div className='flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10  mt-40 text-sm'>
+    <div className='bg-gray-100 text-gray-700 px-6 md:px-20 py-16 rounded-t-3xl shadow-inner mt-40'>
+      <div className='grid md:grid-cols-[3fr_1fr_1fr] gap-12'>
 
+        {/* Logo and description */}
         <div>
-          <img className='mb-5 w-40' src={assets.logo} alt="" />
-          <p className='w-full md:w-2/3 text-gray-600 leading-6'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+          <span onClick={() => navigate('/')} className="flex items-center gap-2 mb-5 cursor-pointer">
+            <span className="size-9 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-md">
+              D
+            </span>
+            <span className="text-3xl font-bold font-mono text-blue-500 tracking-wider">
+              DocBridge
+            </span>
+          </span>
+
+          <p className='text-gray-600 leading-7 text-sm md:text-base max-w-md'>
+            DocBridge connects you with nearby, trusted healthcare professionals. 
+            Book appointments, consult via live video calls, and manage your medical journey — all in one seamless platform.
+          </p>
+
+          <div className='flex gap-4 mt-6'>
+            <Facebook className='w-5 h-5 hover:text-blue-500 cursor-pointer' />
+            <Twitter className='w-5 h-5 hover:text-sky-500 cursor-pointer' />
+            <Instagram className='w-5 h-5 hover:text-pink-500 cursor-pointer' />
+          </div>
         </div>
 
+        {/* Company links */}
         <div>
-          <p className='text-xl font-medium mb-5'>COMPANY</p>
-          <ul className='flex flex-col gap-2 text-gray-600'>
-            <li>Home</li>
-            <li>About us</li>
-            <li>Delivery</li>
-            <li>Privacy policy</li>
+          <p className='text-xl font-semibold text-gray-800 mb-4'>Company</p>
+          <ul className='space-y-2'>
+            {['Home', 'About Us', 'Services', 'Privacy Policy'].map((item, index) => (
+              <li key={index} className='hover:text-black cursor-pointer transition'>
+                {item}
+              </li>
+            ))}
           </ul>
         </div>
 
+        {/* Contact info */}
         <div>
-          <p className='text-xl font-medium mb-5'>GET IN TOUCH</p>
-          <ul className='flex flex-col gap-2 text-gray-600'>
-            <li>9389742196</li>
-            <li>hemantporwal2k3@gmail.com</li>
+          <p className='text-xl font-semibold text-gray-800 mb-4'>Get in Touch</p>
+          <ul className='space-y-3'>
+            <li className='flex items-center gap-2'>
+              <Phone size={18} /> 9389742196
+            </li>
+            <li className='flex items-center gap-2'>
+              <Mail size={18} /> hemantporwal2k3@gmail.com
+            </li>
           </ul>
         </div>
-
       </div>
 
-      <div>
-        <hr />
-        <p className='py-5 text-sm text-center'>Copyright 2024 @ HemantPorwal.com - All Right Reserved.</p>
+      {/* Divider and copyright */}
+      <div className='border-t mt-12 pt-6 text-center text-sm text-gray-500'>
+        &copy; 2024 <span className='font-semibold text-gray-700'>HemantPorwal.com</span> – All Rights Reserved.
       </div>
-
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
