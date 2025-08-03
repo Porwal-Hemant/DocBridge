@@ -2,3 +2,5 @@ backend/package-lock.json
 frontend/package-lock.json
 backend/.env
 frontend/.env
+backend/node_modules/
+frontend/node_modules/7
