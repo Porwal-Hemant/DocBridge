@@ -20,14 +20,13 @@ This is a **Full-Stack Doctor Appointment Booking System** built using the **MER
 - **Payments:** Razorpay  
 - **Other Integrations:**
   - websockets and webRTC for message and video call
-  - Medical Chatbot (basic)
 
 ---
 
 ##  Folder Structure
 
 ```bash
-HP-DOCTORHUB/
+DOCBRIDGE/
 ├── backend/       # Backend code (Node.js + Express)
 ├── frontend/      # User interface (React + Tailwind CSS)
 └── admin/         # Admin panel frontend
@@ -39,17 +38,17 @@ HP-DOCTORHUB/
 
 ##  Getting Started
 
-Follow these steps to set up **MediBot** locally.
+Follow these steps to set up **DOCBRIDGE** locally.
 
 
 ###  1. Clone the Repository
 
 ```bash
-git clone https://github.com/Porwal-Hemant/HP-DOCTORHUB.git
-cd MedibotBooking
+git clone https://github.com/Porwal-Hemant/DocBridge
+cd DOCBRIDGE
 ```
 ###  2. Install Dependencies
-MediBot Booking may have separate folders for backend and frontend ( named **frontend** and **backend** )
+DOCBRIDGE Booking may have separate folders for backend and frontend ( named **frontend** and **backend** )
 
 - Install Backend Dependencies
 
@@ -155,7 +154,7 @@ npm install   # Install admin panel dependencies
 ![Doctor Appointment Page](https://github.com/Porwal-Hemant/DocBridge/blob/main/Screenshot%202025-08-03%20161618.png?raw=true)
 
 ### 🔹 Message Page
-![Message Page](https://github.com/Porwal-Hemant/DocBridge/blob/main/Screenshot%202025-08-03%20163213.png?raw=true)
+![Message Page](https://github.com/Porwal-Hemant/DocBridge/blob/main/Screenshot%202025-08-05%20195751.png?raw=true)
 
 ---
 
