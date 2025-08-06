@@ -87,7 +87,7 @@ RAZORPAY_KEY_SECRET = 'YOUR_KEY_SECRET'
 MAILTRAP_TOKEN= YOUR MAILTRAP TOKEN 
 
 STEAM_API_KEY =  NEW STREAM API KEY
-STEAM_API_SECRET = NEW STREAM API SECRET KEY 
+STEAM_API_SECRET = NEW STREAM aPI SECRET KEY 
 ```
 
 ### 4. Start the Backend Server
@@ -155,6 +155,10 @@ npm install   # Install admin panel dependencies
 
 ### 🔹 Message Page
 ![Message Page](https://github.com/Porwal-Hemant/DocBridge/blob/main/Screenshot%202025-08-05%20195751.png?raw=true)
+
+### 🔹 VideoCall Page
+![Video call Page](https://github.com/Porwal-Hemant/DocBridge/blob/main/Screenshot%202025-08-05%20164620.png?raw=true)
+
 
 ---
 
