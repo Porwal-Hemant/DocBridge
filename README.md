@@ -1,12 +1,12 @@
-# HP-DOCTORHUB – Doctor Appointment Booking System
+# DOCBRIDGE
 
 ##  Overview
 
 This is a **Full-Stack Doctor Appointment Booking System** built using the **MERN stack**. It includes separate panels for **Admin**, **Doctor**, and **User** roles. The application also features:
 
 - **Razorpay** for payment processing  
-- **Google Maps API** for location services  
-- An integrated **medical chatbot** for basic health guidance
+- **video call/Message** for personalized interaction 
+-  Full **Email verification** for the security of the application
 
 ---
 
@@ -19,7 +19,7 @@ This is a **Full-Stack Doctor Appointment Booking System** built using the **MER
 - **File Uploads:** Multer, Cloudinary  
 - **Payments:** Razorpay  
 - **Other Integrations:**
-  - Google Maps API  
+  - websockets and webRTC for message and video call
   - Medical Chatbot (basic)
 
 ---
@@ -37,7 +37,7 @@ HP-DOCTORHUB/
 
 ---
 
-###  Getting Started
+##  Getting Started
 
 Follow these steps to set up **MediBot** locally.
 
@@ -70,14 +70,25 @@ npm install
 - Create a `.env` file inside the **backend** folder and add:
 
 ```bash
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-CLOUDINARY_CLOUD_NAME=your_cloudinary_name
-CLOUDINARY_API_KEY=your_cloudinary_api_key
-CLOUDINARY_API_SECRET=your_cloudinary_api_secret
-RAZORPAY_KEY_ID=your_razorpay_key
-RAZORPAY_KEY_SECRET=your_razorpay_secret
+MONGODB_URI=''
+CLOUDINARY_NAME = ''
+CLOUDINARY_API_KEY = ''
+
+CLOUDINARY_SECRET_KEY = '' 
+# Admin Panel Credentials
+ADMIN_EMAIL = "admin@example.com"
+ADMIN_PASSWORD = ""
+
+JWT_SECRET = "hemant" 
+
+# Razorpay Payment Integration
+CURRENCY ='INR'
+RAZORPAY_KEY_ID = 'YOUR_KEY'
+RAZORPAY_KEY_SECRET = 'YOUR_KEY_SECRET'
+MAILTRAP_TOKEN= YOUR MAILTRAP TOKEN 
+
+STEAM_API_KEY =  NEW STREAM API KEY
+STEAM_API_SECRET = NEW STREAM aPI SECRET KEY 
 ```
 
 ### 4. Start the Backend Server
@@ -88,7 +99,7 @@ npm start
 
 ```
 
-- The backend will start at: http://localhost:5000
+- The backend will start at: http://localhost:4000
 
 
 
@@ -112,9 +123,49 @@ npm install   # Install admin panel dependencies
 
 ---
 
-### Connect with Me 
+##  Screenshots
+
+### 🔹 Home Page ( User Interface ) 
+![Home Page](https://github.com/Porwal-Hemant/DocBridge/blob/main/Screenshot%202025-08-03%20161406.png?raw=true)
+
+### 🔹 Home Page ( During speciality selection )
+![Home Page](https://github.com/Porwal-Hemant/DocBridge/blob/main/Screenshot%202025-08-03%20161424.png?raw=true)
+
+
+### 🔹 All Doctors ( User Interface )
+![All Doctors](https://github.com/Porwal-Hemant/DocBridge/blob/main/Screenshot%202025-08-03%20161500.png?raw=true)
+
+
+### 🔹 Contact Details ( User Interface )
+![Contact Details](https://github.com/Porwal-Hemant/DocBridge/blob/main/Screenshot%202025-08-03%20161517.png?raw=true)
+
+
+### 🔹 Admin Home Page
+![Admin Home Page](https://github.com/Porwal-Hemant/DocBridge/blob/main/Screenshot%202025-08-03%20161532.png?raw=true)
+
+
+### 🔹 Admin Appointment Page
+![Admin Appointment Page](https://github.com/Porwal-Hemant/DocBridge/blob/main/Screenshot%202025-08-03%20161543.png?raw=true)
+
+
+### 🔹 Admin Doctor List
+![Admin Doctor List](https://github.com/Porwal-Hemant/DocBridge/blob/main/Screenshot%202025-08-03%20161552.png?raw=true)
+
+### 🔹 Doctor Appointment Page
+![Doctor Appointment Page](https://github.com/Porwal-Hemant/DocBridge/blob/main/Screenshot%202025-08-03%20161618.png?raw=true)
+
+### 🔹 Message Page
+![Message Page](https://github.com/Porwal-Hemant/DocBridge/blob/main/Screenshot%202025-08-03%20163213.png?raw=true)
+
+---
+
+## Connect with Me 
 
 - **Name**: Hemant Porwal  
 - **Email**: [hemantporwal2k3@gmail.com](mailto:hemantporwal2k3@gmail.com)  
 - **LinkedIn**: [https://www.linkedin.com/in/hemantporwal/](https://www.linkedin.com/in/hemant-porwal-462b1b258/)
+
+
+
+
 
