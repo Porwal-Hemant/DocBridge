@@ -16,7 +16,7 @@ export const useAuthStore = create((set) => ({
         set({ isLoading: true, error: null });
         try {
             const response = await axios.post(`${API_URL}/register`, { email, password, name });
-            set({ user: response.data.user, isAuthenticated: true, isLoading: false });
+            set({ user: response.data.user , isAuthenticated: true, isLoading: false });
         } catch (error) {
             set({ error: error.response.data.message || "Error signing up", isLoading: false });
             throw error;
@@ -64,10 +64,10 @@ export const useAuthStore = create((set) => ({
         try {
             const response = await axios.post(`${API_URL}/verify-email`, { code });
 
-            const { token, user } = response.data;
+            const {  user } = response.data;
 
             // Store token in localStorage or AppContext (if used)
-            localStorage.setItem('token', token);
+            // localStorage.setItem('token', token);  // in my case it is already stored before  
 
             set({ user, isAuthenticated: true, isLoading: false });
             return response.data;
@@ -76,7 +76,6 @@ export const useAuthStore = create((set) => ({
             throw error;
         }
     },
-
 
     checkAuth: async () => {
         set({ isCheckingAuth: true, error: null });
@@ -87,6 +86,7 @@ export const useAuthStore = create((set) => ({
             set({ error: null, isCheckingAuth: false, isAuthenticated: false });
         }
     },
+    
     // checkAuth: async () => {
     //     set({ isCheckingAuth: true, error: null });
 

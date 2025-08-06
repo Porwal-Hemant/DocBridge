@@ -10,3 +10,16 @@
 ::-webkit-scrollbar{
     display: none;
 }
+
+/* In a CSS file like CallPage.css or index.css */
+
+.my-custom-call-theme {
+  /* This variable controls the participant name color in the SpeakerLayout */
+  --str-video__participant-view__name-color: white;
+
+  /* You can also change other things, for example: */
+  --str-video__participant-view__background-color: #2c2c2e; /* A slightly darker background */
+  --str-video__control__background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent controls */
+}
+
+

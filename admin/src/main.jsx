@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
+import "stream-chat-react/dist/css/v2/index.css";
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import AdminContextProvider from './context/AdminContext.jsx'

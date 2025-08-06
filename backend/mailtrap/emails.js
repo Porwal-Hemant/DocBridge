@@ -25,18 +25,19 @@ export const sendVerificationEmail = async (email, verificationToken) =>
 
 };
 
-
-export const sendWelcomeEmail = async (email, name) => {
+export const sendWelcomeEmail = async (email, name) => 
+{
 	const recipient = [{ email }];
 
 	try {
 		const response = await mailtrapClient.send({
 			from: sender,
 			to: recipient,
-			template_uuid: "aacf5c39-c4c8-4ab9-9e61-1497f034bdae",
+			template_uuid: "6fdcfbd8-9386-4b83-be64-dfab586283dc",
 			template_variables: {
 				company_info_name: "DocBridge",
 				name: name,
+				// name of the user that we will get as the argument  
 			},
 		});
 

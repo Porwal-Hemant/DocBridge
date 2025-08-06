@@ -15,7 +15,26 @@ const AppContextProvider = (props) => {
     const [doctors, setDoctors] = useState([]);
     const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '')
     const [userData, setUserData] = useState(false)
+    const [isVerified, setIsVerified] = useState(false); //  new state
     // Getting Doctors using API
+   
+    // this code will be passed to it from EmailVerification.jsx file 
+    const verifyEmail = async (code) => {
+        try {
+            const response = await axios.post(`${backendUrl}/api/user/verify-email`, { code });
+            const { user } = response.data;
+
+            setUserData(user);   // update user data in context
+            setIsVerified(true); //  set isVerified to true
+            toast.success("Email verified successfully");
+
+            return response.data;
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Error verifying email");
+            throw error;
+        }
+    };
+
     const getDoctorsData = async () => {
         try {
             const { data } = await axios.get(backendUrl + "/api/doctor/list");
@@ -37,10 +56,10 @@ const AppContextProvider = (props) => {
 
             const { data } = await axios.get(backendUrl + '/api/user/get-profile', { headers: { token } })
 
-//   const userData = await userModel.findById(userId).select('-password')
+            //   const userData = await userModel.findById(userId).select('-password')
 
-//   res.json({ success: true, userData })
-// on receiving the data we have to fetch userData from the data obtained 
+            //   res.json({ success: true, userData })
+            // on receiving the data we have to fetch userData from the data obtained 
             if (data.success) {
                 setUserData(data.userData)
             } else {
@@ -54,30 +73,30 @@ const AppContextProvider = (props) => {
 
     }
 
-   // this function will be called whenever we will load the webpage 
+    // this function will be called whenever we will load the webpage 
     useEffect(() => {
         getDoctorsData();
     }, []);
 
     useEffect(() => {
         if (token) {
-            loadUserProfileData()
+            loadUserProfileData();
+        } else {
+            setUserData(false);
+            setIsVerified(false);  // change over here 
         }
-        else 
-        {
-            setUserData(false)
-        }
-    }, [token])
+    }, [token]);
 
     const value = {
-        doctors,getDoctorsData,
+        doctors, getDoctorsData,
         currencySymbol,
         token, setToken,
         backendUrl,
-        userData, setUserData, loadUserProfileData
+        userData, setUserData, loadUserProfileData,
+        verifyEmail,        //  export verifyEmail function
+        isVerified,         //  export isVerified state
     };
     // This object holds all the global values that will be shared with other components.
-
 
     return (
         <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
@@ -85,6 +104,9 @@ const AppContextProvider = (props) => {
 };
 
 export default AppContextProvider;
+
+
+
 
 
 

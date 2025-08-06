@@ -12,7 +12,7 @@ if (fs.existsSync(backendEnvPath)) {
   dotenv.config();
 }
 
-const TOKEN = process.env.MAILTRAP_TOKEN;
+const TOKEN = process.env.MAILTRAP_TOKEN;     
 console.log("Mailtrap Token:", TOKEN ? `${TOKEN.substring(0, 8)}...` : 'UNDEFINED');
 
 if (!TOKEN) {
@@ -30,14 +30,18 @@ export const sender = {
   name: "Hemant Porwal",
 };
 
-// we have to make dynamic recipients  
+
+
+
+
+ // we have to make dynamic recipients   ( so commenting it out for now )
 // const recipients = [
 //   {
-//     email: "hemantporwal2k3@gmail.com",
+//     email: "porwalhemant080@gmail.com",
 //   }
 // ];
 
-// client
+// mailtrapClient
 //   .send({
 //     from: sender,
 //     to: recipients,
@@ -46,5 +50,7 @@ export const sender = {
 //     category: "Integration Test",
 //   })
 //   .then(console.log, console.error);
+
+
 
 

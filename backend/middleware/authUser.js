@@ -6,7 +6,8 @@ const authUser = async (req, res, next) =>
 //  const { data } = await axios.post(backendUrl + '/api/user/update-profile', formData, { headers: { token } })
 // from appContext I have sended token state that i have extracted this token state in the MyProfile.jsx page from where i have done this above call 
     const { token } = req.headers
-    if (!token) {
+    if (!token) 
+    {
         return res.json({ success: false, message: 'Not Authorized Login Again' })
     }
     try {

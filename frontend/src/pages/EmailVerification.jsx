@@ -2,45 +2,46 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useAuthStore } from "../store/authStore";
+import { useContext } from "react";
 import toast from "react-hot-toast";
+import { AppContext } from "../context/AppContext";
 
 const EmailVerificationPage = () => {
     const [code, setCode] = useState(["", "", "", "", "", ""]);
     const inputRefs = useRef([]);
     const navigate = useNavigate();
+     
+    const { verifyEmail, isVerified } =    useContext(AppContext) 
+    // const { error, isLoading, verifyEmail } = useAuthStore();
 
-    const { error, isLoading, verifyEmail } = useAuthStore();
+    // const handleDeleteUser = async () => {
+    //     console.log("Delete function called"); // ✅ Log entry point
 
-    const handleDeleteUser = async () => {
-        console.log("Delete function called"); // ✅ Log entry point
+    //     try {
+    //         const token = localStorage.getItem("token")
+    //         console.log("Using token:", token); // ✅ Check if token is found
 
-        try {
-            const token = localStorage.getItem("token")
-            console.log("Using token:", token); // ✅ Check if token is found
+    //         const res = await fetch(
+    //             `http://localhost:4000/api/user/deleteUserByEmail/hemantporwal2k3@gmail.com`,
+    //             {
+    //                 method: "DELETE",
+    //                 headers: { token },
+    //             }
+    //         );
 
-            const res = await fetch(
-                `http://localhost:4000/api/user/deleteUserByEmail/hemantporwal2k3@gmail.com`,
-                {
-                    method: "DELETE",
-                    headers: { token },
-                }
-            );
+    //         const data = await res.json();
+    //         console.log("Response from server:", data); // ✅ Inspect server response
 
-            const data = await res.json();
-            console.log("Response from server:", data); // ✅ Inspect server response
-
-            if (res.ok) {
-                toast.success("User deleted successfully");
-            } else {
-                toast.error(data.message || "Deletion failed");
-            }
-        } catch (error) {
-            console.error("Delete user error:", error); // ✅ Show error
-            toast.error("Something went wrong");
-        }
-    };
-
-
+    //         if (res.ok) {
+    //             toast.success("User deleted successfully");
+    //         } else {
+    //             toast.error(data.message || "Deletion failed");
+    //         }
+    //     } catch (error) {
+    //         console.error("Delete user error:", error); // ✅ Show error
+    //         toast.error("Something went wrong");
+    //     }
+    // };
 
 
     const handleChange = (index, value) => {
@@ -75,6 +76,7 @@ const EmailVerificationPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const verificationCode = code.join("");
+        console.log( "verification code is : " , verificationCode);
         try {
             await verifyEmail(verificationCode);
             navigate("/");
@@ -135,13 +137,13 @@ const EmailVerificationPage = () => {
                     </motion.button>
                 </form>
 
-                <button
+                {/* <button
                     type="button"
                     onClick={handleDeleteUser}
                     className="w-full mt-2 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-all duration-300"
                 >
                     Delete ID
-                </button>
+                </button> */}
 
             </motion.div>
         </div>

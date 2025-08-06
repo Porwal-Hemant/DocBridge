@@ -66,8 +66,8 @@ const registerUser = async (req, res) => {
             name,
             email,
             password: hashedPassword,
-
-            isVerified: true , // initially user is not verified ( not i am not considering verification right now )  -> limit exceeded 
+       // again making isVerified false because we are not considering verification right now
+            isVerified: false , // initially user is not verified ( not i am not considering verification right now )  -> limit exceeded 
  
             verificationToken,
             verificationTokenExpiresAt: Date.now() + 24 * 3600000 // 1 day from now
@@ -81,8 +81,8 @@ const registerUser = async (req, res) => {
             expiresIn: '7d' // token will expire in 7 days
         });   // so that user can login on the website 
 
-        // await sendVerificationEmail(user.email, verificationToken);
-
+        // remove this as well  
+        await sendVerificationEmail(user.email , verificationToken);
 
         res.json({ success: true, token })
 
@@ -97,7 +97,6 @@ const registerUser = async (req, res) => {
 }
 
 // API TO VERIFY EMAIL  
-
 export const verifyEmail = async (req, res) => {
     const { code } = req.body;
     try {
@@ -106,23 +105,26 @@ export const verifyEmail = async (req, res) => {
             verificationTokenExpiresAt: { $gt: Date.now() }
         });
 
-
-        if (!user) {
+        if (!user) 
+        {
+            
             return res.status(400).json({ success: false, message: "Invalid or expired verification code" });
+
         }
 
-        user.isVerified = true;
+        user.isVerified = true;    //  this would help us to verify the user  
         user.verificationToken = undefined;
         user.verificationTokenExpiresAt = undefined;
 
         await user.save();
 
-        await sendWelcomeEmail(user.email, user.name); // Optionally send a confirmation email  
+        await sendWelcomeEmail(user.email, user.name)  ; // Optionally send a confirmation email  
 
         res.status(200).json({
             success: true,
             message: "Email verified successfully",
-            user: {
+            user: 
+            {
                 ...user._doc,
                 password: undefined,
             }
@@ -135,13 +137,15 @@ export const verifyEmail = async (req, res) => {
     }
 }
 
+
 // API to login user
 const loginUser = async (req, res) => {
 
     try {
         const { email, password } = req.body;
         const user = await userModel.findOne({ email })
-
+         
+        // one optimisation we can do over here  
         if (!user) {
             return res.json({ success: false, message: "User does not exist" })
         }
@@ -261,13 +265,15 @@ const updateProfile = async (req, res) => {
         */
 
         // console.log(user.name); // Output: Hemant
-        if (imageFile) {
+        if (imageFile) 
+        {
 
             // upload image to cloudinary
             const imageUpload = await cloudinary.uploader.upload(imageFile.path, { resource_type: "image" })
             const imageURL = imageUpload.secure_url
 
             await userModel.findByIdAndUpdate(userId, { image: imageURL })
+
         }
 
         res.json({ success: true, message: 'Profile Updated' })

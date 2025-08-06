@@ -10,8 +10,6 @@ import PasswordStrengthMeter from '../components/PasswordStrengthMeter'
 // extra have to revised it again  
 // import { useAuthStore } from '../store/authStore'
 
-
-
 const Login = () => {
 
 // const { signup , error ,  isLoading } = useAuthStore()
@@ -32,9 +30,9 @@ const Login = () => {
         if (data.success) 
         {
           localStorage.setItem('token', data.token)
-          // navigate('/verify-email')
+          navigate('/verify-email')
 
-          navigate('/')
+          // navigate('/')
 
           setToken(data.token)
         }
@@ -53,15 +51,13 @@ const Login = () => {
     }
   }
 
-  
   // part of change
 
-
-  useEffect(() => {
-    if (token) navigate('/')
-      // there will be a chnange over here  
-    // Now i should redirect to email verification page and than from this page i should redirect to home page
-  }, [token])
+  // useEffect(() => {
+  //   if (token) navigate('/')
+  //     // there will be a chnange over here  
+  //   // Now i should redirect to email verification page and than from this page i should redirect to home page
+  // }, [token])
 
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-white to-blue-200 overflow-hidden px-4 py-10">

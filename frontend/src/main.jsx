@@ -14,6 +14,12 @@ createRoot(document.getElementById('root')).render(
     <App />
     </AppContextProvider>
 
+    {/* AppContext always runs each and every API with the help of axios for fetching data
+
+Yes — if you've implemented those API calls inside AppContext, and you call them when the component (like <App />) mounts or when the token is available, then yes, they will run.
+
+ */}
+
   </BrowserRouter>,
 )
   
